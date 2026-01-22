@@ -1,4 +1,4 @@
-package com.example.investassistant
+package com.example.investassistant.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
