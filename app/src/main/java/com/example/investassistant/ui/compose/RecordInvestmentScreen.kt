@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Slider
@@ -31,12 +33,17 @@ fun RecordInvestmentScreen(
     val (confidence, setConfidence) = remember { mutableStateOf(50f) }
     val (note, setNote) = remember { mutableStateOf("") }
     val (profit, setProfit) = remember { mutableStateOf(0f) }
-
+// 页面内容区：添加垂直滚动（核心修改）
+    // 1. rememberScrollState() 保存滚动状态
+    // 2. verticalScroll() 开启滚动
+    val scrollState = rememberScrollState()
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .verticalScroll(scrollState) ,// 开启垂直滚动,
         verticalArrangement = Arrangement.spacedBy(16.dp)
+
     ) {
         Text(text = "新建投资记录", fontSize = 18.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
 

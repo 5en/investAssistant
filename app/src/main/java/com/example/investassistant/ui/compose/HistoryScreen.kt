@@ -40,7 +40,7 @@ fun HistoryScreen(
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = Modifier.padding(horizontal = 16.dp, vertical = 8.dp) as PaddingValues
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
             items(records) { record ->
                 InvestmentRecordItem(record = record)
