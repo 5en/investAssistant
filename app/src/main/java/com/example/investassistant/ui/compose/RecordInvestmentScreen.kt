@@ -5,14 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -46,7 +43,7 @@ import java.util.UUID
 @Composable
 fun RecordInvestmentScreen(
     viewModel: InvestmentViewModel = viewModel(),
-    onSave: (InvestmentRecord) -> Unit,
+    onSavePendingRecord: (InvestmentRecord) -> Unit,
     // 新增：列表项结果记录回调，供外部处理业务（如更新ViewModel）
     onRecordResult: (InvestmentRecord, Float, String) -> Unit = { _, _, _ -> },
     modifier: Modifier = Modifier
@@ -161,7 +158,7 @@ fun RecordInvestmentScreen(
                         profit = profit,
                         investDate = System.currentTimeMillis() // 补充时间戳，原代码可能缺失
                     )
-                    onSave(record)
+                    onSavePendingRecord(record)
                     // 保存后清空表单（可选，提升体验）
                     setAmount(10000f)
                     setConfidence(50f)
@@ -205,18 +202,18 @@ fun RecordInvestmentScreen(
     }
 
     // ========== 弹窗：记录投资结果（独立Composable，移出Item内部，修复嵌套问题） ==========
-//    selectedRecord?.let { record ->
-//        RecordResultDialog(
-//            record = record,
-//            onDismiss = { setSelectedRecord(null) }, // 取消/关闭，清空选中项
-//            onConfirm = { profit, resultNote ->
-//                // 确认记录，回调外部处理业务（如更新ViewModel、修改记录状态）
-//                onRecordResult(record, profit, resultNote)
-//                // 清空选中项，关闭弹窗
-//                setSelectedRecord(null)
-//            }
-//        )
-//    }
+    selectedRecord?.let { record ->
+        RecordResultDialog(
+            record = record,
+            onDismiss = { setSelectedRecord(null) }, // 取消/关闭，清空选中项
+            onConfirm = { profit, resultNote ->
+                // 确认记录，回调外部处理业务（如更新ViewModel、修改记录状态）
+                onRecordResult(record, profit, resultNote)
+                // 清空选中项，关闭弹窗
+                setSelectedRecord(null)
+            }
+        )
+    }
 }
 
 /**
@@ -276,7 +273,7 @@ fun PendingRecordItem(
 @Composable
 fun RecordInvestmentScreenPreview() {
     RecordInvestmentScreen(
-        onSave = {},
+        onSavePendingRecord = {},
         onRecordResult = { _, _, _ -> }
     )
 }

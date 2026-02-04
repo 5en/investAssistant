@@ -68,7 +68,7 @@ fun InvestmentMainScreen() {
                 when (selectedTabIndex) {
                     0 -> RecordInvestmentScreen(
                         viewModel = viewModel,
-                        onSave = { record ->
+                        onSavePendingRecord = { record ->
                             // 处理新建记录的保存（如添加到viewModel的pendingRecords）
                             viewModel.addPendingRecord(record)
                         },

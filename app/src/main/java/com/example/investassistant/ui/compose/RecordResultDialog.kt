@@ -23,7 +23,7 @@ import com.example.investassistant.ui.data.InvestmentRecord
 fun RecordResultDialog(
     record: InvestmentRecord,
     onDismiss: () -> Unit,
-    onConfirm: (Double, String) -> Unit
+    onConfirm: (Float, String) -> Unit
 ) {
     val profitInput = remember { mutableStateOf("") }
     val resultNoteInput = remember { mutableStateOf("") }
@@ -62,7 +62,7 @@ fun RecordResultDialog(
         confirmButton = {
             Button(
                 onClick = {
-                    val profit = profitInput.value.toDoubleOrNull() ?: 0.0
+                    val profit = profitInput.value.toFloatOrNull() ?: 0.0f
                     onConfirm(profit, resultNoteInput.value)
                     onDismiss()
                 },
