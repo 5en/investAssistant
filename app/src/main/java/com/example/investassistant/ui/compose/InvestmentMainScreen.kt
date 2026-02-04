@@ -67,9 +67,15 @@ fun InvestmentMainScreen() {
                 // 根据选中的Tab显示对应页面
                 when (selectedTabIndex) {
                     0 -> RecordInvestmentScreen(
-                        onSave = { record -> viewModel.addRecord(record) },
-                        // 移除重复的innerPadding（已在最外层Column应用）
-                        modifier = Modifier.fillMaxSize()
+                        viewModel = viewModel,
+                        onSave = { record ->
+                            // 处理新建记录的保存（如添加到viewModel的pendingRecords）
+                            viewModel.addPendingRecord(record)
+                        },
+                        onRecordResult = { record, profit, note ->
+                            // 处理记录结果的业务（如更新记录收益、从pendingRecords移除）
+                            viewModel.recordResult(record.id, profit, note)
+                        }
                     )
                     1 -> HistoryScreen(
                         records = viewModel.records,

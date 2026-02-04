@@ -29,24 +29,24 @@ fun HistoryScreen(
     records: List<InvestmentRecord>,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = "投资历史记录",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(16.dp)
-        )
-
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            items(records) { record ->
-                InvestmentRecordItem(record = record)
-            }
-        }
-    }
+//    Column(modifier = modifier.fillMaxWidth()) {
+//        Text(
+//            text = "投资历史记录",
+//            fontSize = 18.sp,
+//            fontWeight = FontWeight.Bold,
+//            modifier = Modifier.padding(16.dp)
+//        )
+//
+//        LazyColumn(
+//            modifier = Modifier.fillMaxWidth(),
+//            verticalArrangement = Arrangement.spacedBy(12.dp),
+//            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+//        ) {
+//            items(records) { record ->
+//                InvestmentRecordItem(record = record)
+//            }
+//        }
+//    }
 }
 
 @Composable

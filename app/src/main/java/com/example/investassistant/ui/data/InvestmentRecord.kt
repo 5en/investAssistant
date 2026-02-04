@@ -9,5 +9,7 @@ data class InvestmentRecord(
     val note: String,           // 投资备注
     val profit: Float,          // 收益/亏损（正数盈利，负数亏损）
     val investDate: Long = System.currentTimeMillis(), // 投资时间
-    val closeDate: Long = System.currentTimeMillis()   // 平仓时间
+    val resultNote: String? = null, // 结果备注
+    val closeDate: Long = System.currentTimeMillis(),  // 平仓时间
+    val isRecordResult: Boolean = false // 是否已经记录投资结果
 )

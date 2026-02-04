@@ -6,12 +6,8 @@ import com.example.investassistant.ui.data.InvestmentRecord
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class InvestmentViewModel : ViewModel() {
-    // 投资记录列表
-    private val _records = mutableStateListOf<InvestmentRecord>()
-    val records = _records
 
     // 当前选中的 Tab 索引
     private val _selectedTabIndex = MutableStateFlow(0)
@@ -21,11 +17,31 @@ class InvestmentViewModel : ViewModel() {
     fun switchTab(index: Int) {
         _selectedTabIndex.value = index
     }
+    // 待记录结果的投资列表
+    private val _pendingRecords = mutableStateListOf<InvestmentRecord>()
+    val pendingRecords: List<InvestmentRecord> = _pendingRecords
 
-    // 添加投资记录
-    fun addRecord(record: InvestmentRecord) {
-        viewModelScope.launch {
-            _records.add(0, record) // 最新记录放最前面
+    // 已完成的历史记录列表
+    private val _records = mutableStateListOf<InvestmentRecord>()
+    val records: List<InvestmentRecord> = _records
+
+    // 保存投资记录 → 先进入待记录列表
+    fun addPendingRecord(record: InvestmentRecord) {
+        _pendingRecords.add(record)
+    }
+
+    // 记录投资结果 → 从待办移到历史记录
+    fun recordResult(recordId: String, profit: Float, resultNote: String) {
+        val pendingRecord = _pendingRecords.find { it.id == recordId }
+        pendingRecord?.let {
+            val completedRecord = it.copy(
+                profit = profit,
+                resultNote = resultNote,
+                closeDate = System.currentTimeMillis(),
+                isRecordResult = true
+            )
+            _pendingRecords.remove(it)
+            _records.add(completedRecord)
         }
     }
 
