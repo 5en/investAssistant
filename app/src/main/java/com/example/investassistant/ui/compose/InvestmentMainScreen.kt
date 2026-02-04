@@ -77,10 +77,15 @@ fun InvestmentMainScreen() {
                             viewModel.recordResult(record.id, profit, note)
                         }
                     )
+
                     1 -> HistoryScreen(
                         records = viewModel.records,
+                        onClearAllClick = {
+                            viewModel.clearRecordResult()
+                        },
                         modifier = Modifier.fillMaxSize()
                     )
+
                     2 -> StatisticsScreen(
                         viewModel = viewModel,
                         modifier = Modifier.fillMaxSize()

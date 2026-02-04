@@ -62,4 +62,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 // 本地存储（可选，用 DataStore 存记录）
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // 其他依赖...
+    implementation("com.google.code.gson:gson:2.10.1")
+// 序列化/反序列化
 }
