@@ -56,7 +56,7 @@ fun RecordInvestmentScreen(
     val (confidence, setConfidence) = remember { mutableStateOf(50f) }
     val (note, setNote) = remember { mutableStateOf("") }
     val (profit, setProfit) = remember { mutableStateOf(0f) }
-    val (resultNote,setResultNote) = remember { mutableStateOf("") }
+    val (resultNote, setResultNote) = remember { mutableStateOf("") }
 
     // 根布局改为LazyColumn，统一管理所有内容（表单+列表），彻底解决滚动嵌套
     LazyColumn(
@@ -243,37 +243,45 @@ fun PendingRecordItem(
 //             containerColor = Color(0xFFF0F8F9)
         )
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
-                Text(
-                    text = "¥${record.amount.toInt()}",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "信心度: ${record.confidence.toInt()}% | $investDate",
-                    fontSize = 14.sp,
-                    color = Color.Gray
-                )
-                Text(
-                    text = "投资备注: ${record.note}",
-                    fontSize = 14.sp,
-                    color = Color.Gray
-                )
-            }
-            Button(
-                onClick = onRecordResult,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "记录结果", color = Color.White)
+                Column {
+                    Text(
+                        text = "¥${record.amount.toInt()}",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "信心度: ${record.confidence.toInt()}% | $investDate",
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+
+                }
+                Button(
+                    onClick = onRecordResult,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32))
+                ) {
+                    Text(text = "记录结果", color = Color.White)
+                }
             }
+
+            Text(
+                text = "投资备注: ${record.note}",
+                fontSize = 14.sp,
+                color = Color.Gray
+            )
         }
+
     }
 }
 

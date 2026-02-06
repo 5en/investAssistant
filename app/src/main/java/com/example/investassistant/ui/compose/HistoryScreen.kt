@@ -21,6 +21,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.investassistant.ui.data.InvestmentRecord
+import com.example.investassistant.ui.theme.GREEN
+import com.example.investassistant.ui.theme.RED
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -81,10 +83,13 @@ private fun InvestmentRecordItem(record: InvestmentRecord) {
     val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.CHINA)
     val investDate = dateFormat.format(record.investDate)
     val closeDate = dateFormat.format(record.closeDate)
-
-    // 状态判断（盈利/亏损）
     val isProfit = record.profit > 0
-    val profitColor = if (isProfit) Color(0xFF2E7D32) else Color.Red // 盈利绿/亏损红
+    // 状态判断（盈利/亏损）
+    val profitColor = when {
+        record.profit > 0 -> RED    // 盈利-红
+        record.profit < 0 -> GREEN  // 亏损-绿
+        else -> Color.Gray          // 持平-灰
+    }
 
     // 计算收益率（保留1位小数，避免金额为0崩溃）
     val profitRate = if (record.amount == 0f) 0f else (record.profit / record.amount) * 100
@@ -96,11 +101,11 @@ private fun InvestmentRecordItem(record: InvestmentRecord) {
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(
             // 选项1：浅灰蓝（最通用，适配绝大多数安卓浅色界面）
-//            containerColor = Color(0xFFF5F7FA),
+            containerColor = Color(0xFFF5F7FA),
             // 选项2：浅米白（适配暖色调界面，如浅黄/米色底）
 //             containerColor = Color(0xFFFCFBF7),
             // 选项3：极浅青（适配冷色调/偏蓝的界面）
-             containerColor = Color(0xFFF0F8F9)
+//             containerColor = Color(0xFFF0F8F9)
         )
     ) {
         Column(
@@ -153,8 +158,7 @@ private fun InvestmentRecordItem(record: InvestmentRecord) {
                 text = "投资备注: ${record.note}",
                 fontSize = 14.sp,
                 color = Color.Black,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
+
                 modifier = Modifier.padding(top = 4.dp)
             )
 
@@ -164,8 +168,6 @@ private fun InvestmentRecordItem(record: InvestmentRecord) {
                     text = "经验总结: $summary",
                     fontSize = 14.sp,
                     color = Color(0xFF2196F3), // 蓝色区分经验总结
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(top = 4.dp)
                 )
             }
