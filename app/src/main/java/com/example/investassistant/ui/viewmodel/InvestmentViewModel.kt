@@ -77,6 +77,10 @@ class InvestmentViewModel : ViewModel() {
         SPUtils.saveCompletedRecords(_records)
     }
 
+    fun deleteRecord(record: InvestmentRecord){
+        _records.remove(record)
+        SPUtils.saveCompletedRecords(_records)
+    }
     // 统计数据计算
     val totalInvestments: Int get() = records.size
     val profitableCount: Int get() = records.count { it.profit > 0 }

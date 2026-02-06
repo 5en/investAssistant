@@ -19,13 +19,13 @@ import com.example.investassistant.ui.viewmodel.InvestmentViewModel
 
 @Preview
 @Composable
-fun InvestmentMainScreen(navigationCallback:()->Unit) {
+fun InvestmentMainScreen(navigationCallback: () -> Unit) {
     val viewModel: InvestmentViewModel = viewModel()
     val selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
 
     Scaffold(
         topBar = {
-            InvestmentTopBar({navigationCallback()}) // 顶部导航栏
+            InvestmentTopBar({ navigationCallback() }) // 顶部导航栏
         }
     ) { innerPadding ->
         // 核心修改：用Column垂直布局包裹Tab栏和页面内容
@@ -82,6 +82,7 @@ fun InvestmentMainScreen(navigationCallback:()->Unit) {
                         onClearAllClick = {
                             viewModel.clearRecordResult()
                         },
+                        onDeleteRecord = { record -> viewModel.deleteRecord(record) },
                         modifier = Modifier.fillMaxSize()
                     )
 
