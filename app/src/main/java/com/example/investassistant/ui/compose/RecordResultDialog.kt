@@ -2,6 +2,7 @@ package com.example.investassistant.ui.compose
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.investassistant.ui.data.InvestmentRecord
+
 
 // RecordInvestmentScreen.kt 中新增弹窗逻辑
 @Composable
@@ -55,7 +57,11 @@ fun RecordResultDialog(
                     onValueChange = { resultNoteInput.value = it },
                     label = { Text("结果备注") },
                     placeholder = { Text("记录关键经验...") },
-                    maxLines = 3
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = androidx.compose.ui.text.input.ImeAction.Done // 增强输入法响应
+                    ),
+                    modifier = Modifier.fillMaxWidth() // 关键：确保输入框可聚焦
                 )
             }
         },
