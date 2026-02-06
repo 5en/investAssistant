@@ -37,6 +37,8 @@ fun HistoryScreen(
     onClearAllClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // 核心：按时间字段倒序排序（替换成你实际的时间字段名，比如record.time）
+    val sortedRecords = records.sortedByDescending { it.closeDate }
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp), // Item之间的间距
@@ -68,7 +70,7 @@ fun HistoryScreen(
         }
 
         // 投资记录列表
-        items(records, key = { it.id }) { record ->
+        items(sortedRecords, key = { it.id }) { record ->
             InvestmentRecordItem(record = record)
         }
     }
