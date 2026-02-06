@@ -15,18 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.investassistant.ui.activity.InvestmentTopBar
 import com.example.investassistant.ui.viewmodel.InvestmentViewModel
 
 @Preview
 @Composable
-fun InvestmentMainScreen() {
+fun InvestmentMainScreen(navigationCallback:()->Unit) {
     val viewModel: InvestmentViewModel = viewModel()
     val selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
 
     Scaffold(
         topBar = {
-            InvestmentTopBar() // 顶部导航栏
+            InvestmentTopBar({navigationCallback()}) // 顶部导航栏
         }
     ) { innerPadding ->
         // 核心修改：用Column垂直布局包裹Tab栏和页面内容

@@ -94,7 +94,14 @@ private fun InvestmentRecordItem(record: InvestmentRecord) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-
+        colors = CardDefaults.cardColors(
+            // 选项1：浅灰蓝（最通用，适配绝大多数安卓浅色界面）
+//            containerColor = Color(0xFFF5F7FA),
+            // 选项2：浅米白（适配暖色调界面，如浅黄/米色底）
+//             containerColor = Color(0xFFFCFBF7),
+            // 选项3：极浅青（适配冷色调/偏蓝的界面）
+             containerColor = Color(0xFFF0F8F9)
+        )
     ) {
         Column(
             modifier = Modifier

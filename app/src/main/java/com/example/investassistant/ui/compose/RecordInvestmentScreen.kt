@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -135,16 +136,16 @@ fun RecordInvestmentScreen(
         }
 
         // ========== 独立item：收益输入框 ==========
-        item {
-            OutlinedTextField(
-                value = profit.toString(),
-                onValueChange = { setProfit(it.toFloatOrNull() ?: 0f) },
-                label = { Text("收益/亏损（元）") },
-                placeholder = { Text("正数盈利，负数亏损") },
-                modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-        }
+//        item {
+//            OutlinedTextField(
+//                value = profit.toString(),
+//                onValueChange = { setProfit(it.toFloatOrNull() ?: 0f) },
+//                label = { Text("收益/亏损（元）") },
+//                placeholder = { Text("正数盈利，负数亏损") },
+//                modifier = Modifier.fillMaxWidth(),
+//                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+//            )
+//        }
 
         // ========== 独立item：保存按钮 ==========
         item {
@@ -230,8 +231,17 @@ fun PendingRecordItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(enabled = false) { }, // 防止卡片点击穿透，可选
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            .clickable(enabled = false) { }, // 保留你原有防止点击穿透的逻辑
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp), // 保留原有阴影配置
+        // ========== 新增核心配置：设置协调的背景色 ==========
+        colors = CardDefaults.cardColors(
+            // 选项1：浅灰蓝（最通用，适配绝大多数安卓浅色界面）
+            containerColor = Color(0xFFF5F7FA),
+            // 选项2：浅米白（适配暖色调界面，如浅黄/米色底）
+//             containerColor = Color(0xFFFCFBF7),
+            // 选项3：极浅青（适配冷色调/偏蓝的界面）
+//             containerColor = Color(0xFFF0F8F9)
+        )
     ) {
         Row(
             modifier = Modifier

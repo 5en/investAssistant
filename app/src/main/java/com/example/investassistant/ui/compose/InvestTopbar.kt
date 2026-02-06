@@ -1,23 +1,37 @@
-package com.example.investassistant.ui.activity
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+package com.example.investassistant.ui.compose
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.automirrored.filled.Send
-
-
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,42 +40,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class InvestmentDecisionActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            InvestmentDecisionApp()
-        }
-    }
-}
 
-
-@Composable
-fun InvestmentDecisionApp() {
-    MaterialTheme {
-        Scaffold(
-            topBar = {
-                InvestmentTopBar()
-            }
-        ) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp)
-            ) {
-                InvestmentTabBar()
-                Spacer(modifier = Modifier.height(24.dp))
-                InvestmentForm()
-            }
-        }
-    }
-}
-@Preview
 // 顶部导航栏
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InvestmentTopBar() {
+fun InvestmentTopBar(navigationCallback:()->Unit) {
     TopAppBar(
         title = {
             Column(verticalArrangement = Arrangement.Center) {
@@ -78,25 +61,25 @@ fun InvestmentTopBar() {
             }
         },
         navigationIcon = {
-            IconButton(onClick = { /* 返回逻辑 */ }) {
+            IconButton(onClick = { navigationCallback() }) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
             }
         },
-        actions = {
-            Text(
-                text = "总收益率",
-                fontSize = 12.sp,
-                color = Color.Gray,
-                modifier = Modifier.padding(end = 8.dp)
-            )
-            Text(
-                text = "-2.2%",
-                fontSize = 14.sp,
-                color = Color.Red,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(end = 16.dp)
-            )
-        }
+//        actions = {
+//            Text(
+//                text = "总收益率",
+//                fontSize = 12.sp,
+//                color = Color.Gray,
+//                modifier = Modifier.padding(end = 8.dp)
+//            )
+//            Text(
+//                text = "-2.2%",
+//                fontSize = 14.sp,
+//                color = Color.Red,
+//                fontWeight = FontWeight.Bold,
+//                modifier = Modifier.padding(end = 16.dp)
+//            )
+//        }
     )
 }
 
