@@ -189,7 +189,7 @@ fun RecordInvestmentScreen(
 
         // ========== 列表items：待记录投资项 ==========
         items(
-            items = viewModel.pendingRecords,
+            items = viewModel.pendingRecords.sortedByDescending { it.closeDate },
             key = { it.id } // 设置唯一key，提升重组性能
         ) { record ->
             PendingRecordItem(
